@@ -104,12 +104,12 @@ class History:
         
     def get_utility_given_terminal_history(self):
         if self.is_win():
-            if self.current_player()=='x':
-                return -1
-            if self.current_player()=='o':
-                return 1
+            if (len(self.history) - 1) % 2 == 0:
+                return 1.0
+            else:
+                return -1.0 
         if self.is_draw():
-            return 0
+            return 0.0
 
     def update_history(self, action):
         newHistory = self.history + [action] 
