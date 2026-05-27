@@ -9,10 +9,22 @@ using namespace std;
 */
 
 string solve(int n, vector<long long> a) {
-    // TODO: Fill this function.
-    // Return one of: "Player 1" or "Player 2" or "Draw"
-
-    return "";
+    if (n==0) return "Draw";
+    vector<long long> dp(n+1,0);
+    dp[n]=0; 
+    dp[n-1]=a[n - 1];
+    for (int i=n-2;i>=0;i--) {
+        dp[i]=max(a[i]-dp[i+1],a[i]+a[i + 1]-dp[i + 2]);
+    }
+    if (dp[0] > 0) {
+        return "Player 1";
+    }
+    else if (dp[0] < 0){
+        return "Player 2";
+    } 
+    else {
+        return "Draw";
+    }
 }
 
 static string trim(const string &s) {
