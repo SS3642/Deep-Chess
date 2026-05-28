@@ -209,14 +209,14 @@ def alpha_beta_pruning(history_obj, alpha, beta, max_player_flag):
     else:
         best_val=math.inf
     for acts in history_obj.get_valid_actions():
-        new_history=history_obj.history.append(acts)
+        new_history=history_obj.history+[acts]
         new_val=alpha_beta_pruning(History(history_obj.num_boards,new_history),alpha,beta,not max_player_flag)
         if max_player_flag:
-            best_val=math.max(best_val,new_val)
-            alpha=math.max(alpha,best_val)
+            best_val=max(best_val,new_val)
+            alpha=max(alpha,best_val)
         else:
-            best_val=math.min(best_val,new_val)
-            alpha=math.min(beta,best_val)
+            best_val=min(best_val,new_val)
+            beta=min(beta,best_val)
         if alpha>=beta:
             break
     return best_val
@@ -249,10 +249,10 @@ def maxmin(history_obj, max_player_flag):
         new_val = maxmin(next_hist, not max_player_flag)
         if max_player_flag:
             if new_val > best_val:
-                best_val = val
+                best_val = new_val
         else:
             if new_val < best_val:
-                best_val = val
+                best_val = new_val
     board_positions_val_dict[board_str] = best_val
     return best_val
 
